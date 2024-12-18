@@ -13,9 +13,9 @@ app.post("/soap-service", (req, res) => {
 
   // Build the XML response (based on your provided structure)
   const responseXml = xmlbuilder
-    .create("S:Envelope", { encoding: "ISO-8859-6" })
-    .att("xmlns:S", "http://www.w3.org/2003/05/soap-envelope")
-    .ele("S:Body")
+    .create("soap:Envelope", { encoding: "ISO-8859-6" })
+    .att("xmlns:soap", "http://www.w3.org/2003/05/soap-envelope")
+    .ele("soap:Body")
     .ele("responseDA", { xmlns: "http://tempuri.org" })
     .ele("productName")
     .text("TestProduct")
