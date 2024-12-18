@@ -52,7 +52,9 @@ app.get("/soap-service", (req, res) => {
     // Build the XML response (based on your provided structure)
     const responseXml = xmlbuilder
       .create("soap:Envelope", { encoding: "ISO-8859-6" })
-      .att("xmlns:soap", "http://www.w3.org/2003/05/soap-envelope")
+      .att("xmlns:soap", "http://schemas.xmlsoap.org/soap/envelope/")
+      .att("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+      .att("xmlns:xsd", "http://www.w3.org/2001/XMLSchema")
       .ele("soap:Body")
       .ele("responseDA", { xmlns: "http://tempuri.org" })
       .ele("productName")
@@ -78,6 +80,7 @@ app.get("/soap-service", (req, res) => {
       .up() // End outputData
       .up() // End responseDA
       .end({ pretty: true });
+
   
     // Return SOAP Response
     res.set("Content-Type", "application/soap+xml; charset=ISO-8859-6");
