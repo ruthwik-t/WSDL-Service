@@ -46,6 +46,44 @@ app.post("/soap-service", (req, res) => {
   res.send(responseXml);
 });
 
+app.get("/soap-service", (req, res) => {
+    console.log("SOAP Request received");
+  
+    // Build the XML response (based on your provided structure)
+    const responseXml = xmlbuilder
+      .create("S:Envelope", { encoding: "ISO-8859-6" })
+      .att("xmlns:S", "http://www.w3.org/2003/05/soap-envelope")
+      .ele("S:Body")
+      .ele("responseDA", { xmlns: "http://tempuri.org" })
+      .ele("productName")
+      .text("TestProduct")
+      .up()
+      .ele("strategy")
+      .text("RFNCB")
+      .up()
+      .ele("signature")
+      .text("PFINANCE")
+      .up()
+      .ele("returnCode")
+      .text("0")
+      .up()
+      .ele("outputData")
+      .ele("dictionary", { id: "RF_Outputs" })
+      .ele("list", { numOfItems: "1" })
+      .ele("item")
+      .ele("field", { dataType: "string", name: "CAMPAIGNNAME" })
+      .text("حملة التسويق الرقمية")
+      .up()
+      .up() // End item, list, dictionary
+      .up() // End outputData
+      .up() // End responseDA
+      .end({ pretty: true });
+  
+    // Return SOAP Response
+    res.set("Content-Type", "application/soap+xml; charset=ISO-8859-6");
+    res.send(responseXml);
+});
+
 app.get("/wsdl", (req, res) => {
     res.sendFile(path.join(__dirname, "service.wsdl"));
 });
