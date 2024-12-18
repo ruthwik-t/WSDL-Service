@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const xmlbuilder = require("xmlbuilder");
+const path = require("path");
 
 const app = express();
 app.use(bodyParser.text({ type: "text/xml" }));
@@ -43,6 +44,10 @@ app.post("/soap-service", (req, res) => {
   // Return SOAP Response
   res.set("Content-Type", "application/soap+xml; charset=ISO-8859-6");
   res.send(responseXml);
+});
+
+app.get("/wsdl", (req, res) => {
+    res.sendFile(path.join(__dirname, "service.wsdl"));
 });
 
 // Start the server
