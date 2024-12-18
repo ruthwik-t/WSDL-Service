@@ -52,8 +52,7 @@
 
     <service name="ExampleService">
         <port name="ExamplePort" binding="tns:ExampleBinding">
-            <soap:address location="https://wsdl-service.onrender.com/
- soap-service"/>
+            <soap:address location="https://wsdl-service.onrender.com/soap-service"/>
         </port>
     </service>
 </definitions>
